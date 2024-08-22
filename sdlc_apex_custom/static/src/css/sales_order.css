@@ -1,0 +1,32 @@
+.container {
+    margin-top: 50px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+#order_lines {
+    margin-bottom: 20px;
+}
+
+.order_line {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+#add_line {
+    margin-right: 10px;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 10px;
+}

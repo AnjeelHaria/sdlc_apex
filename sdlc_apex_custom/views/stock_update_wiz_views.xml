@@ -1,0 +1,29 @@
+<odoo>
+    <record id="view_stock_update_wizard" model="ir.ui.view">
+        <field name="name">stock.update.wizard.form</field>
+        <field name="model">stock.update.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import Products">
+                <group>
+                    <field name="file" filename="filename"/>
+                </group>
+                <footer>
+                    <button name="update_stock" type="object" string="Update Stock" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stock_update_wizard" model="ir.actions.act_window">
+        <field name="name">Update Stocksheet</field>
+        <field name="res_model">stock.update.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_stock_update_wizard"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_stock_update" name="Update Stocksheet" parent="sale.sale_menu_root" action="action_stock_update_wizard"/>
+
+
+</odoo>

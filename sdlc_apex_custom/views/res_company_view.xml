@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_sdlc_apex_inherit_form">
+            <field name="name">res.company.form.sdlc.apex.inherit</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="Apex Custom" name="apex" groups="base.group_no_one">
+                        <group>
+                            <group>
+                                <field name="product_csv_filename" invisible="1"/>
+                                <field name="product_csv" widget="binary" filename="product_csv_filename"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <button string="Import Products" type="object" name="import_products_apex"/>
+                            </group>
+
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+	</data>
+</odoo>

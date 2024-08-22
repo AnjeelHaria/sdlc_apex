@@ -1,0 +1,6 @@
+<odoo>
+    <menuitem
+        id="spreadsheet_dashboard.spreadsheet_dashboard_menu_root"
+        groups_id="base.group_system"
+        />
+</odoo>

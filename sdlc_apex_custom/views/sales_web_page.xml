@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <template id="create_sales_order_template" name="Create Sales Order">
+        <t t-call="website.layout">
+            <div class="container">
+                <h1>Create Sales Order</h1>
+                <form action="/submit_sales_order" method="post">
+                    <div class="form-group">
+                        <label for="customer">Customer</label>
+                        <select id="customer" name="customer_id" class="form-control">
+                            <t t-foreach="customers" t-as="customer">
+                                <option t-att-value="customer.id"><t t-esc="customer.name"/></option>
+                            </t>
+                        </select>
+                    </div>
+                    <div id="order_lines">
+                        <div class="order_line">
+                            <div class="form-group">
+                                <label for="product">Product</label>
+                                <input type="text" class="product_search form-control" placeholder="Start typing product name"/>
+                                <select name="product_id" class="product_select form-control">
+                                    <option value="">Select a product</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="quantity">Quantity</label>
+                                <input type="number" name="quantity" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="add_line" class="btn btn-secondary">Add Line</button>
+                    <button type="submit" class="btn btn-primary">Create Order</button>
+                </form>
+            </div>
+        </t>
+    </template>
+    <record id="menu_order_booking_new" model="website.menu">
+       <field name="name">Order Booking</field>
+       <field name="url">/create_sales_order</field>
+       <field name="parent_id" ref="website.main_menu"/>
+       <field name="sequence" type="int">60</field>
+    </record>
+<!--     <template id="assets_frontend" inherit_id="web.assets_frontend">-->
+<!--        <xpath expr="." position="inside">-->
+<!--            <script type="text/javascript" src="/sdlc_apex_custom/static/src/js/sales_order.js"></script>-->
+<!--            <link rel="stylesheet" href="/sdlc_apex_custom/static/src/css/sales_order.css" />-->
+<!--        </xpath>-->
+<!--    </template>-->
+</odoo>

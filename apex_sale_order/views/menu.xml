@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl) -->
+<odoo>
+
+    <!-- Top menu item -->
+    <menuitem
+        id="menu_apex_sale_order_top_menu"
+        name="Apex Sale Orders"
+        sequence="10"
+        groups="sdlc_apex_custom.apex_sales_operator,sdlc_apex_custom.apex_accounts"
+    />
+
+    <menuitem
+        id="menu_apex_sale_order"
+        name="Apex Sale Orders"
+        parent="menu_apex_sale_order_top_menu"
+    />
+
+    <menuitem
+        id="menu_draft_apex_sale_order_menu"
+        parent="menu_apex_sale_order"
+        action="action_apex_sale_orders"
+        groups="sdlc_apex_custom.apex_sales_operator"
+    />
+
+    <menuitem
+        id="menu_to_be_approved_apex_sale_order_menu"
+        parent="menu_apex_sale_order"
+        action="action_apex_sale_orders_to_be_approved"
+        groups="sdlc_apex_custom.apex_accounts"
+    />
+
+    <menuitem
+        id="menu_on_hold_apex_sale_order_menu"
+        parent="menu_apex_sale_order"
+        action="action_apex_sale_orders_on_hold"
+        groups="sdlc_apex_custom.apex_sales_operator"
+    />
+
+    <menuitem
+        id="menu_approved_apex_sale_order_menu"
+        parent="menu_apex_sale_order"
+        action="action_apex_sale_orders_approved"
+        groups="sdlc_apex_custom.apex_sales_operator"
+    />
+
+    <menuitem id="product_menu_catalog"
+    name="Products"
+    parent="menu_apex_sale_order_top_menu"
+    sequence="30"/>
+
+    <menuitem id="menu_stock_quants_action"
+        action="stock_quants"
+              parent="product_menu_catalog"
+        sequence="10"/>
+
+</odoo>
