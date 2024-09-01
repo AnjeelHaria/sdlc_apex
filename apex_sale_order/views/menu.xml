@@ -61,8 +61,8 @@
     parent="menu_apex_sale_order_top_menu"
     sequence="30"/>
 
-    <menuitem id="menu_stock_quants_action"
-        action="stock_quants"
+    <menuitem id="menu_product_product_action"
+        action="product_product"
               parent="product_menu_catalog"
         sequence="10"/>
 

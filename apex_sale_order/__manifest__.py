@@ -13,7 +13,7 @@
         "data/ir_sequence_data.xml",
         "security/ir.model.access.csv",
         "views/apex_sale_order.xml",
-        "views/stock_quant.xml",
+        "views/product_product.xml",
         "views/menu.xml",
         "wizard/apex_sale_order_validate_wizard_view.xml",
     ],

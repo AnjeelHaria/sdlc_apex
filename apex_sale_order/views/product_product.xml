@@ -1,0 +1,29 @@
+<odoo>
+
+    <record model="ir.ui.view" id="view_product_product_tree">
+        <field name="name">product.product.tree</field>
+        <field name="model">product.product</field>
+        <field eval="5" name="priority"/>
+        <field name="arch" type="xml">
+            <tree sample="1" js_class="stock_report_list_view" create="0" edit="0" delete="0">
+                    <field name="id" column_invisible="True"/>
+                    <field name="display_name" string="Product"/>
+                    <field name="categ_id" optional="hide"/>
+                    <field name="qty_available" string="On Hand" sum="Total On Hand"/>
+                    <field name="free_qty" string="Free to Use" sum="Total Free to Use"/>
+                    <field name="incoming_qty" optional="show" sum="Total Incoming"/>
+                    <field name="outgoing_qty" optional="show" sum="Total Outgoing"/>
+                    <field name="virtual_available" string="Forecasted" optional="hide" sum="Total Forecasted"/>
+                    <field name="uom_id" string="Unit" groups="uom.group_uom" options="{'no_create': True}"/>
+                </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="product_product">
+        <field name="name">Product</field>
+        <field name="res_model">product.product</field>
+        <field name="view_id" ref="view_product_product_tree"/>
+        <field name="search_view_id" ref="stock.product_search_form_view_stock_report"/>
+    </record>
+</odoo>
