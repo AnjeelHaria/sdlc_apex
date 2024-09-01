@@ -55,30 +55,30 @@
                             invisible="not authorized_transaction_ids"/>
                     <button id="create_invoice" name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
                         type="action" class="btn-primary" data-hotkey="i"
-                        invisible="invoice_status != 'to invoice'"/>
+                        invisible="1"/>
                     <button id="create_invoice_percentage" name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
                         type="action" context="{'default_advance_payment_method': 'percentage'}" data-hotkey="i"
-                        invisible="invoice_status != 'no' or state != 'sale'"/>
+                        invisible="1"/>
 <!--                    changes draft to account approved-->
                     <button name="action_quotation_send" id="send_by_email_primary" string="Send by Email" type="object" data-hotkey="g"
-                        invisible="state != 'accounts_approved'" class="btn-primary"
+                        invisible="state != 'draft'" class="btn-primary"
                         context="{'validate_analytic': True}"/>
                     <button name="action_quotation_send" id="send_proforma_primary" type="object" string="Send PRO-FORMA Invoice" class="btn-primary"
                         groups="sale.group_proforma_sales"
-                        invisible="state != 'accounts_approved' or invoice_count &gt;= 1" context="{'proforma': True, 'validate_analytic': True}"/>
+                        invisible="state != 'draft' or invoice_count &gt;= 1" context="{'proforma': True, 'validate_analytic': True}"/>
                     <button name="action_confirm" id="action_confirm" data-hotkey="q"
                         string="Confirm" class="btn-primary" type="object" context="{'validate_analytic': True}"
                         invisible="state != 'sent'"/>
                     <button name="action_confirm" data-hotkey="q"
                         string="Confirm" type="object" context="{'validate_analytic': True}"
-                        invisible="state != 'accounts_approved'"/>
-                    <button name="action_quotation_send" id="send_proforma" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" invisible="state == 'accounts_approved' or invoice_count &gt;= 1" context="{'proforma': True, 'validate_analytic': True}"/>
-                    <button name="action_quotation_send" id="send_by_email" string="Send by Email" type="object" invisible="state not in ('sent', 'sale', 'accounts_approved')" data-hotkey="g" context="{'validate_analytic': True}"/>
+                        invisible="state != 'draft'"/>
+                    <button name="action_quotation_send" id="send_proforma" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" invisible="state == 'draft' or invoice_count &gt;= 1" context="{'proforma': True, 'validate_analytic': True}"/>
+                    <button name="action_quotation_send" id="send_by_email" string="Send by Email" type="object" invisible="state not in ('sent', 'sale')" data-hotkey="g" context="{'validate_analytic': True}"/>
 
                     <!-- allow to unlock locked orders even if setting is not enabled (e.g. orders synchronized from connectors) -->
                     <button name="action_unlock" type="object" string="Unlock"
                             invisible="not locked" groups="sales_team.group_sale_manager"/>
-                    <button name="action_preview_sale_order" string="Preview" type="object" class="btn-secondary" invisible="state != 'accounts_approved'"/>
+                    <button name="action_preview_sale_order" string="Preview" type="object" class="btn-secondary"/>
                     <button name="action_cancel" type="object" string="Cancel" invisible="state not in ['draft', 'sent', 'sale'] or not id or locked" data-hotkey="x"/>
                     <button name="action_draft" invisible="state != 'cancel'" type="object" string="Set to Quotation" data-hotkey="w"/>
                     <t groups="sale.group_auto_done_setting">
@@ -87,7 +87,7 @@
                             invisible="locked or state != 'sale'"
                             groups="sales_team.group_sale_manager"/>
                     </t>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,accounts_check,accounts_approved"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale"/>
                 </header>
                 <div
                      class="alert alert-warning" role="alert"
