@@ -1,6 +1,6 @@
 <odoo>
-    <menuitem
-        id="spreadsheet_dashboard.spreadsheet_dashboard_menu_root"
-        groups_id="base.group_system"
-        />
+
+     <record id="spreadsheet_dashboard.spreadsheet_dashboard_menu_root" model="ir.ui.menu">
+            <field name="groups_id" eval="[(4, ref('base.group_system'))]"/>
+        </record>
 </odoo>

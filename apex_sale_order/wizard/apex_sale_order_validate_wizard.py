@@ -1,14 +1,14 @@
 from odoo import models, fields
 
-class Apex_Sale_Order_Approve_Wizard(models.TransientModel):
-    _name = 'apex.sale.order.approve.wizard'
-    _description = 'Apex Sale Order Approve Wizard'
+class Apex_Sale_Order_Validate_Wizard(models.TransientModel):
+    _name = 'apex.sale.order.validate.wizard'
+    _description = 'Apex Sale Order Validate Wizard'
 
     comments = fields.Text()
     apex_sale_order_id = fields.Many2one("apex.sale.order")
 
-    def approve_order(self):
-        self.apex_sale_order_id.state = 'accounts_approved'
+    def validate_order(self):
+        self.apex_sale_order_id.state = 'validated'
         order_lines_data = []
         for line in self.apex_sale_order_id.order_line:
             order_lines_data.append((0, 0, {
@@ -22,9 +22,9 @@ class Apex_Sale_Order_Approve_Wizard(models.TransientModel):
             'user_id': self.apex_sale_order_id.create_uid.id
         })
         if self.comments:
-            msg = ("Order approved by %s with comment:%s" % (self.env.user.name, self.comments))
+            msg = ("Order validated by %s with comment:%s" % (self.env.user.name, self.comments))
         else:
-            msg = ("Order approved by %s" % self.env.user.name)
+            msg = ("Order validated by %s" % self.env.user.name)
         self.apex_sale_order_id.message_post(
             body=msg,
             subtype_xmlid='mail.mt_note',

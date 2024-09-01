@@ -2,6 +2,16 @@
 <odoo>
     <data>
 
+        <record id="sale.sale_menu_root" model="ir.ui.menu">
+            <field name="groups_id" eval="[(4, ref('base.group_no_one'))]"/>
+        </record>
+
+        <record id="sale_management.sale_order_form_quote" model="ir.ui.view">
+            <field name="active">False</field>
+        </record>
+
+
+
         <record id="sale.view_order_form" model="ir.ui.view">
             <field name="name">sale.order.form</field>
             <field name="model">sale.order</field>
@@ -112,10 +122,12 @@
                                    placeholder="Type to find a customer..." readonly="state in ['cancel', 'sale']"/>
                             <field name="partner_invoice_id"
                                   groups="account.group_delivery_invoice_address"
+                                  invisible="1"
                                   context="{'default_type':'invoice', 'show_address': False, 'show_vat': False}"
                                   readonly="state == 'cancel' or locked"/>
                             <field name="partner_shipping_id"
                                   groups="account.group_delivery_invoice_address"
+                                   invisible="1"
                                   context="{'default_type':'delivery', 'show_address': False, 'show_vat': False}"
                                   readonly="state == 'cancel' or locked"/>
                         </group>
@@ -133,10 +145,10 @@
                             <field name="show_update_pricelist" invisible="1"/>
                             <label for="pricelist_id"
                                    groups="product.group_product_pricelist"
-                                   invisible="not has_active_pricelist"/>
+                                   invisible="1"/>
                             <div groups="product.group_product_pricelist"
                                  class="o_row"
-                                 invisible="not has_active_pricelist">
+                                 invisible="1">
                                 <field name="pricelist_id" options="{'no_open':True,'no_create': True}" readonly="state in ['cancel', 'sale']"/>
                                 <button name="action_update_prices" type="object"
                                     string=" Update Prices"
@@ -358,7 +370,7 @@
                                     <field name="product_packaging_id" invisible="not product_id" context="{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}" groups="product.group_stock_packaging" optional="show"/>
                                     <field
                                         name="price_unit"
-
+                                        invisible="1"
                                         readonly="qty_invoiced &gt; 0"/>
                                     <field
                                         name="tax_id"
@@ -367,14 +379,15 @@
                                         domain="[('type_tax_use', '=', 'sale'), ('company_id', 'parent_of', parent.company_id), ('country_id', '=', parent.tax_country_id)]"
                                         context="{'active_test': True}"
                                         readonly="qty_invoiced &gt; 0 or is_downpayment"
+                                        invisible="1"
                                         optional="show"/>
                                     <field name="discount" string="Disc.%" groups="product.group_discount_per_so_line" optional="show"/>
                                     <field name="is_downpayment" column_invisible="True"/>
-                                    <field name="price_subtotal" string="Tax excl." invisible="is_downpayment"/>
+                                    <field name="price_subtotal" string="Tax excl." invisible="1"/>
                                     <field name="price_total"
                                            string="Tax incl."
                                            column_invisible="parent.tax_calculation_rounding_method == 'round_globally'"
-                                           invisible="is_downpayment"
+                                           invisible="1"
                                            optional="hide"/>
                                     <!-- Others fields -->
                                     <field name="tax_calculation_rounding_method" column_invisible="True"/>
@@ -475,7 +488,7 @@
                                         class="btn btn-secondary"
                                         groups="product.group_discount_per_so_line"/>
                             </div>
-                            <group name="note_group" col="6" class="mt-2 mt-md-0">
+                            <group name="note_group" col="6" class="mt-2 mt-md-0" invisible="1">
                                 <group colspan="4">
                                     <field  colspan="2" name="note" nolabel="1" placeholder="Terms and conditions..."/>
                                 </group>
@@ -542,7 +555,7 @@
                                 </group>
                             </group>
                         </page>
-                        <page groups="base.group_no_one" string="Customer Signature" name="customer_signature" invisible="not require_signature and not signed_by and not signature and not signed_on">
+                        <page groups="base.group_no_one" string="Customer Signature" name="customer_signature" invisible="1">
                             <group>
                                 <field name="signed_by" readonly="signature"/>
                                 <field name="signed_on" readonly="signature"/>
@@ -560,76 +573,75 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="sale_order_from_inherit_apex">
-            <field name="name">sale.order.form.inherit.apex</field>
-            <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale.view_order_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//group[@name='sale_total']" position="replace">
-                    <group class="oe_subtotal_footer" colspan="2" name="sale_total" groups="sdlc_apex_custom.apex_accounts">
-                        <field name="tax_totals" widget="account-tax-totals-field" nolabel="1" colspan="2" readonly="1"/>
-                    </group>
-                </xpath>
-                <xpath expr="//field[@name='order_line']//tree//field[@name='price_subtotal']" position="replace">
-                    <field name="price_subtotal" string="Tax excl." invisible="is_downpayment" groups="sdlc_apex_custom.apex_accounts"/>
-                </xpath>
-                <xpath expr="//field[@name='order_line']//tree//field[@name='price_unit']" position="replace">
-                    <field
-                                        name="price_unit"
-                                        readonly="qty_invoiced &gt; 0"
-                                        groups="sdlc_apex_custom.apex_accounts"
-                    />
-                    <field
-                                        name="price_unit"
-                                        readonly="qty_invoiced &gt; 0"
-                                        invisible="1"
-                                        groups="!sdlc_apex_custom.apex_accounts"
-                    />
-                </xpath>
-                <xpath expr="//field[@name='order_line']//tree//field[@name='tax_id']" position="replace">
-                    <field
-                                        name="tax_id"
-                                        widget="many2many_tags"
-                                        options="{'no_create': True}"
-                                        domain="[('type_tax_use', '=', 'sale'), ('company_id', 'parent_of', parent.company_id), ('country_id', '=', parent.tax_country_id)]"
-                                        context="{'active_test': True}"
-                                        readonly="qty_invoiced &gt; 0 or is_downpayment"
-                                        groups="sdlc_apex_custom.apex_accounts"
-                                        optional="show"/>
-                </xpath>
-                <xpath expr="//field[@name='order_line']//tree//field[@name='price_total']" position="replace">
-                    <field name="price_total"
-                                   string="Tax incl."
-                                   column_invisible="parent.tax_calculation_rounding_method == 'round_globally'"
-                                   invisible="is_downpayment"
-                           groups="sdlc_apex_custom.apex_accounts"
-                                   optional="hide"/>
-                </xpath>
-            </field>
-        </record>
 
-        <record id="view_quotation_tree_apex" model="ir.ui.view">
+
+        <record id="sale.sale_order_tree" model="ir.ui.view">
             <field name="name">sale.order.tree.apex</field>
             <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale.sale_order_tree"/>
-            <field name="mode">primary</field>
-            <field name="priority">4</field>
             <field name="arch" type="xml">
+               <tree class="o_sale_order"
+                  string="Sales Orders"
+                  sample="1"
+                  decoration-muted="state == 'cancel'">
+                <header>
+                    <button name="%(sale.action_view_sale_advance_payment_inv)d"
+                            type="action"
+                            string="Create Invoices"
+                            class="btn-secondary"/>
+                </header>
+                <field name="message_needaction" column_invisible="True"/>
+                <field name="currency_id" column_invisible="True"/>
 
-                <field name="amount_to_invoice" position="attributes">
-                    <attribute name="groups">sdlc_apex_custom.apex_accounts</attribute>
+                <field name="name" string="Number" readonly="1" decoration-bf="1"/>
+                <field name="date_order" widget="date" optional="show" readonly="state in ['cancel', 'sale']"/>
+                <field name="commitment_date" optional="hide"/>
+                <field name="expected_date" optional="hide"/>
+                <field name="partner_id" readonly="1"/>
+                <field name="user_id" widget="many2one_avatar_user" optional="show"/>
+                <field name="activity_ids" widget="list_activity" optional="show"/>
+                <field name="team_id" optional="hide"/>
+                <field name="company_id" groups="!base.group_multi_company" column_invisible="True"/>
+                <field name="company_id"
+                       groups="base.group_multi_company"
+                       optional="show"
+                       readonly="1"/>
+                <field name="tag_ids"
+                      widget="many2many_tags"
+                      options="{'color_field': 'color'}"
+                      optional="hide"/>
+                <field name="state"
+                    decoration-success="state == 'sale'"
+                    decoration-info="state == 'draft'"
+                    decoration-primary="state == 'sent'"
+                    widget="badge"
+                    optional="hide"/>
+                <field name="invoice_status"
+                    decoration-success="invoice_status == 'invoiced'"
+                    decoration-info="invoice_status == 'to invoice'"
+                    decoration-warning="invoice_status == 'upselling'"
+                    widget="badge"
+                    optional="show"/>
+                <field name="client_order_ref" optional="hide"/>
+                <field name="validity_date" optional="hide"/>
+                   <field name="amount_to_invoice" optional="hide"/>
+            </tree>
+            </field>
+        </record>
+
+        <record id="view_order_form_inherit_l10n_in_sale" model="ir.ui.view">
+            <field name="name">sale.order.form.apex</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="l10n_in_sale.view_order_form_inherit_l10n_in_sale"/>
+            <field name="arch" type="xml">
+                <field name="l10n_in_reseller_partner_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
                 </field>
-                <field name="amount_total" position="replace">
-                    <field name="amount_total"
-                       sum="Total Tax Included"
-                       widget="monetary"
-                       decoration-bf="1"
-                       decoration-info="invoice_status == 'to invoice'"
-                       groups="sdlc_apex_custom.apex_accounts"
-                       optional="show"/>
+                <field name="l10n_in_gst_treatment" position="attributes">
+                    <attribute name="invisible">1</attribute>
                 </field>
             </field>
         </record>
+
 
     </data>
 </odoo>

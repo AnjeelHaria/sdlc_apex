@@ -7,13 +7,32 @@
         id="menu_apex_sale_order_top_menu"
         name="Apex Sale Orders"
         sequence="10"
-        groups="sdlc_apex_custom.apex_sales_operator,sdlc_apex_custom.apex_accounts"
+        groups="sdlc_apex_custom.apex_sales_operator,sdlc_apex_custom.apex_accounts,sdlc_apex_custom.apex_warehouse"
     />
+
+    <menuitem
+        id="menu_sale_orders"
+        name="Sale Orders"
+        parent="menu_apex_sale_order_top_menu"
+        groups="sdlc_apex_custom.apex_warehouse"
+    >
+            <menuitem id="menu_sale_quotations"
+                action="sale.action_quotations_with_onboarding"
+                groups="sales_team.group_sale_salesman"
+                sequence="10"/>
+
+            <menuitem id="menu_sale_order"
+                name="Orders"
+                action="sale.action_orders"
+                groups="sales_team.group_sale_salesman"
+                sequence="20"/>
+    </menuitem>
 
     <menuitem
         id="menu_apex_sale_order"
         name="Apex Sale Orders"
         parent="menu_apex_sale_order_top_menu"
+        groups="sdlc_apex_custom.apex_sales_operator,sdlc_apex_custom.apex_accounts"
     />
 
     <menuitem
@@ -24,24 +43,17 @@
     />
 
     <menuitem
-        id="menu_to_be_approved_apex_sale_order_menu"
+        id="menu_to_be_validated_apex_sale_order_menu"
         parent="menu_apex_sale_order"
-        action="action_apex_sale_orders_to_be_approved"
-        groups="sdlc_apex_custom.apex_accounts"
+        action="action_apex_sale_orders_to_be_validated"
+        groups="sdlc_apex_custom.apex_accounts,sdlc_apex_custom.apex_sales_operator"
     />
 
     <menuitem
-        id="menu_on_hold_apex_sale_order_menu"
+        id="menu_validated_apex_sale_order_menu"
         parent="menu_apex_sale_order"
-        action="action_apex_sale_orders_on_hold"
-        groups="sdlc_apex_custom.apex_sales_operator"
-    />
-
-    <menuitem
-        id="menu_approved_apex_sale_order_menu"
-        parent="menu_apex_sale_order"
-        action="action_apex_sale_orders_approved"
-        groups="sdlc_apex_custom.apex_sales_operator"
+        action="action_apex_sale_orders_validated"
+        groups="sdlc_apex_custom.apex_accounts,sdlc_apex_custom.apex_sales_operator"
     />
 
     <menuitem id="product_menu_catalog"

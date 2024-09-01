@@ -1,1 +1,1 @@
-from . import apex_sale_order_approve_wizard
+from . import apex_sale_order_validate_wizard

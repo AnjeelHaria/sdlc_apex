@@ -15,7 +15,7 @@
         "views/apex_sale_order.xml",
         "views/stock_quant.xml",
         "views/menu.xml",
-        "wizard/apex_sale_order_approve_wizard_view.xml",
+        "wizard/apex_sale_order_validate_wizard_view.xml",
     ],
     "application": True,
     "installable":True

@@ -16,8 +16,7 @@ class ApexSaleOrder(models.Model):
     partner_id = fields.Many2one('res.partner', string='Customer', required=True)
     state = fields.Selection([('draft', 'Draft'),
                                 ('accounts_check', 'Sent for Accounts Check'),
-                              ('accounts_approved', 'Accounts Approved'),
-                              ('accounts_hold', 'Accounts Hold'),
+                              ('validated', 'Validated'),
                               ],default="draft")
     order_line = fields.One2many(
         comodel_name='apex.sale.order.line',
@@ -41,25 +40,19 @@ class ApexSaleOrder(models.Model):
         self.state = 'accounts_check'
         return True
 
-    def action_accounts_approve(self):
-        """ Change state to Accounts Approved """
+    def action_accounts_validate(self):
+        """ Change state to Validated """
         self.ensure_one()
         return {
-            'name': "Approve Apex Sale Order",
+            'name': "Validate Apex Sale Order",
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
-            'res_model': 'apex.sale.order.approve.wizard',
+            'res_model': 'apex.sale.order.validate.wizard',
             'target': 'new',
             'context': {
                 'default_apex_sale_order_id': self.id
             }
         }
-
-    def action_accounts_hold(self):
-        """ Change state to Accounts Hold """
-        self.ensure_one()
-        self.state = 'accounts_hold'
-        return True
 
 class ApexSaleOrderLine(models.Model):
     _name = "apex.sale.order.line"

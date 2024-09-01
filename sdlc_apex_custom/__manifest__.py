@@ -13,7 +13,7 @@ Odoo 17 Customisation for Apex Shoes
     'company': 'SDLC Corp',
     'maintainer': 'SDLC Corp',
     'website': 'https://www.sdlccorp.com',
-    'depends': ['sale','stock','spreadsheet_dashboard'],
+    'depends': ['sale_management','l10n_in_sale','stock','spreadsheet_dashboard'],
     'data': [
         'security/apex_groups.xml',
         'security/ir.model.access.csv',

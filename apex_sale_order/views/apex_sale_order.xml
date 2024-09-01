@@ -26,19 +26,12 @@
                     groups="sdlc_apex_custom.apex_sales_operator"
                     />
                 <button
-                    name="action_accounts_approve"
+                    name="action_accounts_validate"
                     type="object"
                     class="btn-success"
                     invisible="state != 'accounts_check'"
-                    string="Approve"
+                    string="Validate"
                     groups="sdlc_apex_custom.apex_accounts"/>
-                <button
-                    name="action_accounts_hold"
-                    type="object"
-                    class="btn-warning"
-                    invisible="state != 'accounts_check'"
-                    string="Hold"
-                    groups="sdlc_apex_custom.apex_sales_operator"/>
                 <field name="state" widget="statusbar" />
             </header>
             <sheet>
@@ -85,8 +78,8 @@
         </field>
     </record>
 
-    <record id="action_apex_sale_orders_to_be_approved" model="ir.actions.act_window">
-        <field name="name">Apex Sale Orders To Be Approved</field>
+    <record id="action_apex_sale_orders_to_be_validated" model="ir.actions.act_window">
+        <field name="name">Apex Sale Orders To Be Validated</field>
         <field name="res_model">apex.sale.order</field>
         <field name="view_mode">tree,form</field>
         <field name="context">{}</field>
@@ -98,25 +91,12 @@
         </field>
     </record>
 
-    <record id="action_apex_sale_orders_on_hold" model="ir.actions.act_window">
-        <field name="name">Apex Sale Orders On Hold</field>
+    <record id="action_apex_sale_orders_validated" model="ir.actions.act_window">
+        <field name="name">Apex Sale Orders Validated</field>
         <field name="res_model">apex.sale.order</field>
         <field name="view_mode">tree,form</field>
         <field name="context">{}</field>
-        <field name="domain">[('state','=','accounts_hold')]</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a new apex sale order, the first step of a new sale!
-            </p>
-        </field>
-    </record>
-
-    <record id="action_apex_sale_orders_approved" model="ir.actions.act_window">
-        <field name="name">Apex Sale Orders Approved</field>
-        <field name="res_model">apex.sale.order</field>
-        <field name="view_mode">tree,form</field>
-        <field name="context">{}</field>
-        <field name="domain">[('state','=','accounts_approved')]</field>
+        <field name="domain">[('state','=','validated')]</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new apex sale order, the first step of a new sale!
