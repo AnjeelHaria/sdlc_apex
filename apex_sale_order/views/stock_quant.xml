@@ -5,8 +5,7 @@
         <field name="model">stock.quant</field>
         <field eval="5" name="priority"/>
         <field name="arch" type="xml">
-            <tree js_class="inventory_report_list"
-                  sample="1">
+            <tree create="0" edit="0">
                 <field name="location_id"
                        readonly="id"
                        options="{'no_create': True}"/>
