@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+    <t t-name="StockBodyFooter">
+        <div class="stock_body_footer">
+            <div class="stock-detail-body">
+                <table class="table stock-table-detail">
+                    <thead>
+                        <tr>
+                            <th class="text-left" title="Product Name">Product</th>
+                            <t t-if="picking_id.order_data.group_stock_lot">
+                                <th class="text-left" title="LOT Number">LOT/Serial Number</th>
+                            </t>
+                            <th class="text-right" title="Reserved Qty">Reserved Quantity</th>
+                            <th class="text-right">Quantity Done</th>
+                            <t t-if="picking_id.order_data.state=='Waiting' or picking_id.order_data.state=='Ready' or picking_id.order_data.state=='Waiting Another Operation'">
+                                <th/>
+                                <th/>
+                                <th/>
+                            </t>
+                        </tr>
+                    </thead>
+                    <tbody class="stock-move-line-row">
+                        <t t-if="picking_id.orderlines">
+                            <t t-foreach="picking_id.orderlines" t-as="line" t-key="line.line_id">
+                                <tr t-attf-id="#{updated_line_id == line.line_id ? 'blink' : ''}" >
+                                    <td class="text-left"><t t-esc="line.product_id[1]"/></td>
+                                    <td class="text-left">
+                                        <t t-if="picking_id.order_data.group_stock_lot">
+                                            <div>
+                                                <t t-if="line.lot_id[0]">
+                                                    <t t-if="picking_id.order_data.use_existing_lots or picking_id.order_data.use_create_lots">
+                                                        <span class="lot-assign-input-text"><t t-esc="line.lot_id[1]"/></span>
+                                                    </t>
+                                                </t>
+                                                <t t-else="">
+                                                    <span/>
+                                                </t>
+                                                <t t-if="line.product_tracking == 'lot'">
+                                                    <span class="lot-assign-input">
+                                                        <t t-if="picking_id.order_data.use_create_lots or picking_id.order_data.use_existing_lots">
+                                                            <select class="lot-enter-input lot-dynamic-selection" name="lot" t-attf-id="lot_line_{{line.line_id}}" style="width:150px;">
+                                                                <t t-if="picking_id.order_data.use_existing_lots">
+                                                                    <t t-foreach="line.lot_list" t-as="lot_id" t-key="lot_id.id">
+                                                                        <option  t-att-value="lot_id.lot_name" t-att-selected="line.lot_id[1] == lot_id.lot_name"><t t-esc="lot_id.lot_name"/> </option>
+                                                                    </t>
+                                                                </t>
+                                                            </select>
+                                                        </t>
+                                                    </span>
+                                                </t>
+                                                <t t-else="">
+                                                    <span/>
+                                                </t>
+                                            </div>
+                                        </t>
+                                    </td>
+                                    <td class="text-right"><t t-esc="line.reserved_uom_qty"/></td>
+                                    <td class="text-right"><span class="done_quantity_text"><t t-esc="line.quantity_done"/></span><input type="number" t-att-value="line.quantity_done" class="new-updated-done_quantity" style="display:none;"/></td>
+                                    <t t-if="picking_id.order_data.state=='Waiting' or picking_id.order_data.state=='Ready' or picking_id.order_data.state=='Waiting Another Operation'">
+                                        <td class="edit-quantity-lot"><i class="fa fa-pencil icon-button-pointer" style="font-size:20px;" t-att-use-create-lot="picking_id.order_data.use_create_lots" t-att-data-line-id="line.line_id" t-att-value="line.quantity_done" title="Edit Quantity" id="open_quantity_prompt"/></td>
+                                        <td class="update_quantity-lot"><i class="fa fa-check icon-button-pointer" style="font-size:20px;" t-att-data-line-id="line.line_id" t-att-value="line.quantity_done" title="Update Quantity" id="update-line-quantity-lot"/></td>
+                                        <td><i class="icon-button-pointer" style="font-size:15px;" t-att-data-line-id="line.line_id" t-att-value="line.quantity_done" title="+1 to Done qty" id="plus_one_done_qty"><b t-att-data-line-id="line.line_id">+1</b></i></td>
+                                        <td><i class="icon-button-pointer" style="font-size:15px;" t-att-data-line-id="line.line_id" t-att-value="line.quantity_done" title="-1 to Done qty" id="decrease_one_done_qty"><b t-att-data-line-id="line.line_id">-1</b></i></td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+                <div class="stock-detail-btn-footer">
+                    <div class="row" style="margin-top:0px;">
+                        <t t-if="picking_id.order_data.state=='Waiting' or picking_id.order_data.state=='Ready' or picking_id.order_data.state=='Waiting Another Operation'">
+                            <button class="button_operations btn btn-block-half btn-primary mb-4 mb-sm-0"
+                                    id="product_manualy">Enter Barcode Manually</button>
+                            <button class="button_operations btn btn-block-half btn-primary mb-4 mb-sm-0"
+                                    id="validate_order">Validate Order</button>
+                        </t>
+                    </div>
+                </div>
+            </div>
+            <div class="stock-detail-info-footer">
+                    <t t-if="picking_id.order_data.state=='Done' or picking_id.order_data.state=='Cancelled'">
+                        <p style="font-size:20px;"><span class="button_operations badge badge-info badge-block-half mb-4 mb-sm-0">This record is in <t
+                                t-esc="picking_id.order_data.state"/> state, You can not update such record!!!</span></p>
+                    </t>
+                <t t-if="picking_id.order_data.state=='Draft'">
+                         <p style="font-size:20px;" class="mb4"><span class="button_operations badge badge-info badge-block-half mb-4 mb-sm-0">This Order is in <t
+                                 t-esc="picking_id.order_data.state"/> state, First Mark as Todo.</span></p>
+                    <button class="btn btn-block-half btn-primary mb-4 mb-sm-0"
+                            id="mark_as_todo_order" style="margin-left:25%;">Mark as Todo</button>
+                </t>
+            </div>
+        </div>
+    </t>
+</templates>

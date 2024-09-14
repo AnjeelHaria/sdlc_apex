@@ -1,0 +1,42 @@
+<odoo>
+    <record id="stock_picking_kanban_for_stock_barcode" model="ir.ui.view">
+        <field name="name">stock.picking.kanban.stock.barcode</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.stock_picking_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('o_kanban_record_headings')]/strong" position="replace">
+                <button class="btn o_kanban_record_title open_barcode_view" name="open_stock_barcode_view" style="padding: 0px;"
+                  type="object">
+                  <span><t t-esc="record.name.value"/></span>
+                </button>
+            </xpath>
+            <xpath expr="//div[contains(@t-attf-class, 'oe_kanban_card')]" position="attributes">
+                    <attribute name="t-attf-class">
+                        oe_kanban_card open_custom_stockBarcode
+                    </attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="stock_picking_kanban_view_for_stock_barcode" model="ir.ui.view">
+        <field name="name">stock.barcode.picking.kanban.for.stock.barcode</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.stock_picking_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban[hasclass('o_kanban_mobile')]" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_picking_action_kanban_for_stock_barcode" model="ir.actions.act_window">
+        <field name="name">Operations</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="view_id" ref="eg_stock_barcode.stock_picking_kanban_view_for_stock_barcode"/>
+        <field name="context">{
+            'search_default_available': 1,
+        }</field>
+    </record>
+</odoo>

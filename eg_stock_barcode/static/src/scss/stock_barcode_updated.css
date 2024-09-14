@@ -1,0 +1,53 @@
+.update_quantity-lot{
+    display: none;
+}
+
+.new-updated-done_quantity{
+    width: 80px!important;
+    display: none;
+}
+
+.lot-enter-input{
+    width: 80px;
+}
+
+.lot-assign-input{
+    display:none;
+}
+
+table.table.stock-table-detail thead tr {
+    border-top: 1px solid #e9ecef;
+}
+
+.o_stock_barcode_main_menu_container{
+    overflow-y: scroll;
+}
+div#sale_barcode_scan {
+    width: 100%;
+}
+a#barcode_back_main_menu i {
+    vertical-align: super;
+}
+a#barcode_back_main_menu {
+    float: left;
+}
+   .oe_kanban_card.open_custom_stockBarcode .open_barcode_view span {
+    position: absolute;
+    top: 5px;
+    left: 35px;
+    }
+    .oe_kanban_card.open_custom_stockBarcode {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    .oe_kanban_card.open_custom_stockBarcode .open_barcode_view {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .open_custom_stockBarcode button.btn.btn-link.oe_kanban_action.oe_kanban_action_button {
+    display: contents;
+    }

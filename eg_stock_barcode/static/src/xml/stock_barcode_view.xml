@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+    <t t-name="eg_stock_barcode.StockBarcodeScanWidget">
+        <div class="o_stock_barcode_main_menu_container o_home_menu_background">
+            <div class="o_stock_barcode_main_menu position-relative">
+                <div class="barcode-title">
+                    <a href="#" class="o_stock_barcode_menu d-block float-left" id="barcode_back_main_menu" t-on-click="(ev) => this.back_to_main_menu(ev)"><i class="fa fa-chevron-left"/></a>
+                    <h1 class="mb-4">Barcode Scan</h1>
+                </div>
+                <div class="o_stock_barcode_container position-relative d-inline-block mt-4 mb-5" id="sale_barcode_scan">
+                    <img src="/eg_stock_barcode/static/src/img/barcode.gif" alt="Barcode" title="Scan Barcode"/>
+                </div>
+                <button class="button_operations btn btn-block btn-primary mb-sm-0 show_picking_order" t-on-click="(ev) => this.show_picking_order(ev)"  id="show_picking_order">Show Operations</button>
+                <button class="button_operations btn btn-block btn-primary mb-sm-0" id="enter_barcode_delivery" t-on-click="(ev) => this.open_barcode_prompt(ev)">Enter Barcode Manually</button>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,12 @@
+<odoo>
+   <record id="action_barcode_scan_main_menu" model="ir.actions.client">
+        <field name="name">Barcode Scan</field>
+        <field name="tag">stock_barcode_main_menu</field>
+        <field name="target">main</field>
+    </record>
+
+    <menuitem
+        id="barcode_scan_main_menu"
+        action="action_barcode_scan_main_menu"
+        name="Barcode"/>
+</odoo>

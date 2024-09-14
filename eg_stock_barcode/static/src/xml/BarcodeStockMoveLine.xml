@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+    <t t-name="BarcodeStockMoveLine">
+        <tbody class="stock-move-line-row">
+            <t t-if="picking_id.orderlines">
+                <t t-foreach="picking_id.orderlines" t-as="line" t-key="line.line_id">
+                    <tr t-attf-id="#{updated_line_id == line.line_id ? 'blink' : ''}" >
+                        <td class="text-left"><t t-esc="line.product_id[1]"/></td>
+                        <td class="text-left">
+                            <t t-if="picking_id.order_data.group_stock_lot">
+                                <div>
+                                    <t t-if="line.lot_id[0]">
+                                        <t t-if="picking_id.order_data.use_existing_lots or picking_id.order_data.use_create_lots">
+                                            <span class="lot-assign-input-text"><t t-esc="line.lot_id[1]"/></span>
+                                        </t>
+                                    </t>
+                                    <t t-else="">
+                                        <span/>
+                                    </t>
+                                    <t t-if="line.product_tracking == 'lot'">
+                                        <span class="lot-assign-input">
+                                            <t t-if="picking_id.order_data.use_create_lots or picking_id.order_data.use_existing_lots">
+                                                <select class="lot-enter-input lot-dynamic-selection" name="lot" t-attf-id="lot_line_{{line.line_id}}" style="width:150px;">
+                                                    <t t-if="picking_id.order_data.use_existing_lots">
+                                                        <t t-foreach="line.lot_list" t-as="lot_id" t-key="lot_id">
+                                                            <option  t-att-value="lot_id.lot_name" t-att-selected="line.lot_id[1] == lot_id.lot_name"><t t-esc="lot_id.lot_name"/> </option>
+                                                        </t>
+                                                    </t>
+                                                </select>
+                                            </t>
+                                        </span>
+                                    </t>
+                                    <t t-else="">
+                                        <span/>
+                                    </t>
+                                </div>
+                            </t>
+                        </td>
+                        <td class="text-right"><t t-esc="line.reserved_uom_qty"/></td>
+                        <td class="text-right"><span class="done_quantity_text"><t t-esc="line.quantity_done"/></span><input type="number" t-att-value="line.quantity_done" class="new-updated-done_quantity" style="display:none;"/></td>
+                        <t t-if="picking_id.order_data.state=='Waiting' or picking_id.order_data.state=='Ready' or picking_id.order_data.state=='Waiting Another Operation'">
+                            <td class="edit-quantity-lot"><i class="fa fa-pencil icon-button-pointer" style="font-size:20px;" t-att-use-create-lot="picking_id.order_data.use_create_lots" t-att-data-line-id="line.line_id" t-att-value="line.quantity_done" title="Edit Quantity" id="open_quantity_prompt" t-on-click="(ev) => this.change_product_quantity_prompt(ev)"/></td>
+                            <td class="update_quantity-lot"><i class="fa fa-check icon-button-pointer" style="font-size:20px;" t-att-data-line-id="line.line_id" t-att-value="line.quantity_done" title="Update Quantity" id="update-line-quantity-lot" t-on-click="(ev) => this.update_stock_move_line(ev)"/></td>
+                            <td><i class="icon-button-pointer" style="font-size:15px;" t-att-data-line-id="line.line_id" t-att-value="line.quantity_done" title="+1 to Done qty" id="plus_one_done_qty" t-on-click="(ev) => this.plus_one_done_qty(ev)"><b t-att-data-line-id="line.line_id">+1</b></i></td>
+                            <td><i class="icon-button-pointer" style="font-size:15px;" t-att-data-line-id="line.line_id" t-att-value="line.quantity_done" title="-1 to Done qty" id="decrease_one_done_qty" t-on-click="(ev) => this.decrease_one_done_qty(ev)"> <b t-att-data-line-id="line.line_id">-1</b></i></td>
+                        </t>
+                    </tr>
+                </t>
+            </t>
+        </tbody>
+    </t>
+</templates>

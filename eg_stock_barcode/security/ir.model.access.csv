@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_create,perm_write,perm_read,perm_unlink
+access_ir_actions_client,ir.actions.client,base.model_ir_actions_client,,1,1,1,1

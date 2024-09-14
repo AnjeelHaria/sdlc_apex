@@ -1,0 +1,72 @@
+<odoo>
+    <record id="stock_picking_type_kanban_view_for_barcode_stock" model="ir.ui.view">
+        <field name="name">stock.picking.type.kanban.for.barcode.stock</field>
+        <field name="model">stock.picking.type</field>
+        <field name="arch" type="xml">
+            <kanban class="oe_background_grey o_kanban_dashboard o_emphasize_colors o_stock_kanban" create="0">
+                <field name="color"/>
+                <field name="code" readonly="1"/>
+                <field name="count_picking_ready"/>
+                <field name="count_picking_draft"/>
+                <field name="count_picking_waiting"/>
+                <field name="count_picking_late"/>
+                <field name="count_picking_backorders"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-if="['incoming', 'outgoing', 'internal'].indexOf(record.code.raw_value) > -1"
+                             t-attf-class="#{!selection_mode ? kanban_color(record.color.raw_value) : ''} oe_kanban_global_click"
+                             name="stock_picking">
+                            <div>
+                                <div t-attf-class="o_kanban_card_header">
+                                    <div class="o_kanban_card_header_title">
+                                        <div class="o_primary" t-if="!selection_mode">
+                                            <a type="object" name="get_stock_picking_action_picking_type_kanban">
+                                                <field name="name"/>
+                                            </a>
+                                        </div>
+                                        <div class="o_primary" t-if="selection_mode">
+                                            <field name="name"/>
+                                        </div>
+                                        <div class="o_secondary">
+                                            <field class="o_secondary" name="warehouse_id" readonly="1"
+                                                   groups="stock.group_stock_multi_warehouses"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container o_kanban_card_content" t-if="!selection_mode">
+                                    <div class="row">
+                                        <div class="col-6 o_kanban_primary_left">
+                                            <button class="btn btn-primary" name="get_stock_picking_action_picking_type_kanban"
+                                                    type="object">
+                                                <span t-if="record.code.raw_value =='incoming'">
+                                                    <t t-esc="record.count_picking_ready.value"/>
+                                                    To Process
+                                                </span>
+                                                <span t-if="record.code.raw_value =='outgoing'">
+                                                    <t t-esc="record.count_picking_ready.value"/>
+                                                    To Process
+                                                </span>
+                                                <span t-if="record.code.raw_value =='internal'">
+                                                    <t t-esc="record.count_picking_ready.value"/>
+                                                    To Process
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="stock_picking_type_kanban_view_action" model="ir.actions.act_window">
+        <field name="name">Operations</field>
+        <field name="res_model">stock.picking.type</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="domain">[('code', 'in', ('incoming', 'outgoing', 'internal'))]</field>
+        <field name="view_id" ref="eg_stock_barcode.stock_picking_type_kanban_view_for_barcode_stock"/>
+    </record>
+</odoo>

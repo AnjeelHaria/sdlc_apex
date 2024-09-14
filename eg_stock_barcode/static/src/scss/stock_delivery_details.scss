@@ -1,0 +1,84 @@
+#blink {
+  color:white;
+  animation: blinker 2s linear 0.1s;
+  background-color:#9e9dc2;
+}
+
+@keyframes blinker {
+  25%{
+    opacity: 0;
+
+  }
+  50% {
+    opacity: 100;
+
+  }
+  75% {
+    opacity:0;
+
+  }
+}
+
+.delivery_order_state {
+    border-radius: 20%;
+    background:#00A09D;
+    color:white;
+    text-transform: capitalize;
+}
+
+.no_border_input{
+    border : 0;
+    width : 30px;
+}
+
+.stock-detail-header{
+    height: 20vh;
+    padding: 5px 100px 1px 100px;
+    margin-bottom:0px;
+    border: 2px red;
+    font-size: 1.2em;
+}
+
+.stock-detail-body{
+    position: absolute;
+    height: 59vh;
+    overflow-y: auto;
+    width: 100%;
+    padding: 1px 100px 1px 100px;
+    margin-top: 0px;
+    font-size: 1.2em;
+}
+
+.stock-detail-btn-footer{
+   position: fixed;
+   width : 100%;
+   bottom: 2%;
+   font-size: 20vw;
+   left: 0%;
+   padding: 5px 75px 1px 75px;
+   font-size: 1.2em;
+}
+
+.icon-button-pointer{
+    cursor: pointer;
+}
+
+.btn-block-half{
+    display : block;
+    width: 48%;
+    margin-left: 4px;
+    font-size: 1.4em;
+}
+
+.badge-block-half{
+    display : block;
+    font-size: 1.4em;
+    text-align: center;
+}
+
+.stock-detail-info-footer{
+    position:absolute;
+    width:100%;
+    bottom:20px;
+}
+
