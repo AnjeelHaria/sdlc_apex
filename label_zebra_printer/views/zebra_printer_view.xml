@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_zebra_shipmentlabel">
+        <t t-call="web.external_layout">
+            <div class="page" />
+        </t>
+    </template>
+    <!-- <report
+        id="report_shipment_label"
+        string="Shipment Label"
+        model="stock.picking"
+        report_type="qweb-pdf"
+        name="label_zebra_printer.report_zebra_shipmentlabel"
+        file="label_zebra_printer.report_zebra_shipmentlabel" /> -->
+    <record id="report_shipment_label" model="ir.actions.report">
+            <field name="name">Shipment Label</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">label_zebra_printer.report_zebra_shipmentlabel</field>
+            <field name="report_file">label_zebra_printer.report_zebra_shipmentlabel</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
+    <!-- <template id="assets_backend" name="zebra printer" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/label_zebra_printer/static/src/lib/rsvp-3.1.0.min.js"></script>
+            <script type="text/javascript" src="/label_zebra_printer/static/src/lib/sha-256.min.js"></script>
+            <script type="text/javascript" src="/label_zebra_printer/static/src/lib/qz-tray.js"></script>
+            <script type="text/javascript" src="/label_zebra_printer/static/src/lib/jsrsasign-latest-all-min.js"></script>
+            <script type="text/javascript" src="/label_zebra_printer/static/src/lib/jsrsasign-latest-all-min.js"></script>
+            <script type="text/javascript" src="/label_zebra_printer/static/src/lib/rsvp-3.1.0.min.js"></script>
+            <script type="text/javascript" src="/label_zebra_printer/static/src/lib/sha-256.min.js"></script>
+            <script type="text/javascript" src="/label_zebra_printer/static/src/lib/qz-tray.js"></script>
+            <script type="text/javascript" src="/label_zebra_printer/static/src/js/qweb_action_manager.js" />
+            </xpath>
+    </template> -->
+</odoo>

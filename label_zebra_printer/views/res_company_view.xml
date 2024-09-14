@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="company_form_zabra" model="ir.ui.view">
+        <field name="name">res.company.form.zabra.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[last()]" position="inside">
+                <page string="Printer Configuration" name="printer_config">
+                    <group>
+                        <field name="printer_ids" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="qz_certificate"/>
+                        <field name="private_key"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_printers" model="ir.actions.act_window">
+        <field name="name">Printers</field>
+        <field name="res_model">label.printer</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menuprinters" parent="base.reporting_menuitem" action="action_printers"/>
+</odoo>
