@@ -1,0 +1,8 @@
+<odoo>
+    <menuitem
+        id="eg_stock_barcode.barcode_scan_main_menu"
+        action="eg_stock_barcode.action_barcode_scan_main_menu"
+        name="Barcode"
+        groups="sdlc_apex_custom.apex_warehouse"
+        />
+</odoo>
