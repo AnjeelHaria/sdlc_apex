@@ -48,7 +48,10 @@ class ProductImportWizard(models.TransientModel):
                     prod_soft = product_tmpl_obj.create({
                         'name': product_name + ' ' + 'Soft A',
                         'default_code': default_code + '-' + 'Soft A',
-                        'type': 'product',
+                        'article': article,
+                        'colour': colour,
+                        'hardness_type': 'S',
+                        'size': size,
                         # 'categ_id': 1,  # Assuming 'All' category, change as needed
                         # 'list_price': 0.0  # Set appropriate price
                     })
@@ -56,6 +59,10 @@ class ProductImportWizard(models.TransientModel):
                         'name': product_name + ' ' + 'Soft B',
                         'default_code': default_code + '-' + 'Soft B',
                         'type': 'product',
+                        'article': article,
+                        'colour': colour,
+                        'hardness_type': 'S',
+                        'size': size,
                         # 'categ_id': 1,  # Assuming 'All' category, change as needed
                         # 'list_price': 0.0  # Set appropriate price
                     })
@@ -64,6 +71,10 @@ class ProductImportWizard(models.TransientModel):
                         'name': product_name + ' ' + 'Hard A',
                         'default_code': default_code + '-' + 'Hard A',
                         'type': 'product',
+                        'article': article,
+                        'colour': colour,
+                        'hardness_type': 'H',
+                        'size': size,
                         # 'categ_id': 1,  # Assuming 'All' category, change as needed
                         # 'list_price': 0.0  # Set appropriate price
                     })
@@ -71,6 +82,10 @@ class ProductImportWizard(models.TransientModel):
                         'name': product_name + ' ' + 'Hard B',
                         'default_code': default_code + '-' + 'Hard B',
                         'type': 'product',
+                        'article': article,
+                        'colour': colour,
+                        'hardness_type': 'H',
+                        'size': size,
                         # 'categ_id': 1,  # Assuming 'All' category, change as needed
                         # 'list_price': 0.0  # Set appropriate price
                     })
@@ -81,6 +96,10 @@ class ProductImportWizard(models.TransientModel):
                         'name': product_name + ' ' + 'Hard A',
                         'default_code': default_code + '-' + 'Hard A',
                         'type': 'product',
+                        'article': article,
+                        'colour': colour,
+                        'hardness_type': 'H',
+                        'size': size,
                         # 'categ_id': 1,  # Assuming 'All' category, change as needed
                         # 'list_price': 0.0  # Set appropriate price
                     })
@@ -88,6 +107,10 @@ class ProductImportWizard(models.TransientModel):
                         'name': product_name + ' ' + 'Hard B',
                         'default_code': default_code + '-' + 'Hard B',
                         'type': 'product',
+                        'article': article,
+                        'colour': colour,
+                        'hardness_type': 'H',
+                        'size': size,
                         # 'categ_id': 1,  # Assuming 'All' category, change as needed
                         # 'list_price': 0.0  # Set appropriate price
                     })
@@ -96,6 +119,10 @@ class ProductImportWizard(models.TransientModel):
                         'name': product_name + ' ' + 'Soft A',
                         'default_code': default_code + '-' + 'Soft A',
                         'type': 'product',
+                        'article': article,
+                        'colour': colour,
+                        'hardness_type': 'S',
+                        'size': size,
                         # 'categ_id': 1,  # Assuming 'All' category, change as needed
                         # 'list_price': 0.0  # Set appropriate price
                     })
@@ -103,6 +130,10 @@ class ProductImportWizard(models.TransientModel):
                         'name': product_name + ' ' + 'Soft B',
                         'default_code': default_code + '-' + 'Soft B',
                         'type': 'product',
+                        'article': article,
+                        'colour': colour,
+                        'hardness_type': 'S',
+                        'size': size,
                         # 'categ_id': 1,  # Assuming 'All' category, change as needed
                         # 'list_price': 0.0  # Set appropriate price
                     })
@@ -111,6 +142,9 @@ class ProductImportWizard(models.TransientModel):
                         'name': product_name + ' ' + 'A',
                         'default_code': default_code + '-' + 'A',
                         'type': 'product',
+                        'article': article,
+                        'colour': colour,
+                        'size': size,
                         # 'categ_id': 1,  # Assuming 'All' category, change as needed
                         # 'list_price': 0.0  # Set appropriate price
                     })
@@ -118,6 +152,9 @@ class ProductImportWizard(models.TransientModel):
                         'name': product_name + ' ' + 'B',
                         'default_code': default_code + '-' + 'B',
                         'type': 'product',
+                        'article': article,
+                        'colour': colour,
+                        'size': size,
                         # 'categ_id': 1,  # Assuming 'All' category, change as needed
                         # 'list_price': 0.0  # Set appropriate price
                     })
