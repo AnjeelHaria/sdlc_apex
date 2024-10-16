@@ -1,6 +1,6 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl)
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
 class ApexSaleOrder(models.Model):
@@ -38,10 +38,19 @@ class ApexSaleOrder(models.Model):
         if not self.order_line:
             raise UserError("Add at least one order line")
         self.state = 'accounts_check'
+        for order in self:
+            order_ref = order._get_html_link()
+            customer_ref = order.partner_id._get_html_link()
+            for user in self.env.ref("sdlc_apex_custom.apex_accounts").users:
+                order.activity_schedule(
+                    'apex_sale_order.act_apex_sale_accounts_check',
+                    user_id=user.id,
+                    note=_("Check %(order)s for customer %(customer)s", order=order_ref, customer=customer_ref))
         return True
 
     def action_accounts_validate(self):
         """ Change state to Validated """
+        self.activity_unlink(['apex_sale_order.act_apex_sale_accounts_check'])
         self.ensure_one()
         return {
             'name': "Validate Apex Sale Order",

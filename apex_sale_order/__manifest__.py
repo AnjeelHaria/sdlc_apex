@@ -11,6 +11,7 @@
     "depends": ["sdlc_apex_custom"],
     "data": [
         "data/ir_sequence_data.xml",
+        "data/mail_activity_type_data.xml",
         "security/ir.model.access.csv",
         "views/apex_sale_order.xml",
         "views/product_product.xml",
