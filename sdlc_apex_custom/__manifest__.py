@@ -18,6 +18,7 @@ Odoo 17 Customisation for Apex Shoes
         'security/apex_groups.xml',
         'security/ir.model.access.csv',
         'views/res_company_view.xml',
+        'views/product_view.xml',
         'views/sale_view.xml',
         'views/dashboard.xml',
         'views/product_import_wizard_views.xml',
