@@ -2,3 +2,4 @@
 "access_sale_order","sale.order.apex","sale.model_sale_order","sdlc_apex_custom.apex_sales_operator",1,1,1,1
 "access_product_import_wizard","access_product_import_wizard","model_product_import_wizard",,1,1,1,1
 "access_stock_update_wizard","access_stock_update_wizard","model_stock_update_wizard",,1,1,1,1
+"access_customer_update_wizard","access_customer_update_wizard","model_customer_import_wizard",,1,1,1,1

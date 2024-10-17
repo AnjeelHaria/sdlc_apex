@@ -1,0 +1,29 @@
+<odoo>
+    <record id="view_customer_import_wizard" model="ir.ui.view">
+        <field name="name">customer.import.wizard.form</field>
+        <field name="model">customer.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import Customers">
+                <group>
+                    <field name="file" filename="filename"/>
+                </group>
+                <footer>
+                    <button name="import_customers" type="object" string="Import" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_customer_import_wizard" model="ir.actions.act_window">
+        <field name="name">Import Customers</field>
+        <field name="res_model">customer.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_customer_import_wizard"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_customer_import" name="Import Customers" parent="sale.sale_menu_root" action="action_customer_import_wizard"/>
+
+
+</odoo>
