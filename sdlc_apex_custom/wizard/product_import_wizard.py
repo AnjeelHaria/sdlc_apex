@@ -2,6 +2,8 @@ from odoo import models, fields, api
 import csv
 import base64
 import io
+import logging
+_logger = logging.getLogger(__name__)
 
 class ProductImportWizard(models.TransientModel):
     _name = 'product.import.wizard'
@@ -20,6 +22,7 @@ class ProductImportWizard(models.TransientModel):
 
         product_tmpl_obj = self.env['product.template']
         for row in reader:
+
             article = row['ARTICLE']
             colour = row['COLOUR']
             sh = row['SOFT/HARD']
@@ -32,6 +35,7 @@ class ProductImportWizard(models.TransientModel):
             # Construct product name and default code
             product_name = " ".join(name_parts)
             default_code = "-".join(code_parts)
+            _logger.info("Product %s ", product_name)
 
             existing_products = product_tmpl_obj.search([('default_code', '=', default_code)])
             if existing_products:
