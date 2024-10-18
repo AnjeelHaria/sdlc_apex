@@ -24,6 +24,7 @@ Odoo 17 Customisation for Apex Shoes
         'views/product_import_wizard_views.xml',
         'views/customer_import_wizard_views.xml',
         'views/stock_update_wiz_views.xml',
+        'views/report_stockpicking_operations.xml',
         # 'views/sales_web_page.xml',
     ],
     # "assets": {
