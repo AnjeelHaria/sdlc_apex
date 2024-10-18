@@ -10,6 +10,20 @@
                 <xpath expr="//header" position="inside">
                     <button name="create_lot_sequence_auto" type="object" string="Set Lot Sequence" class="btn-primary"/>
                 </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Apex">
+                        <group>
+                            <group>
+                                <field name="article" />
+                                <field name="colour" />
+                            </group>
+                            <group>
+                                <field name="hardness_type" />
+                                <field name="size" />
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
             </field>
         </record>
 	</data>
