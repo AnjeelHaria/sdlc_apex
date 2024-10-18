@@ -5,7 +5,7 @@ from odoo.exceptions import UserError
 
 class ApexSaleOrder(models.Model):
     _name = "apex.sale.order"
-    _inherit = ['mail.thread']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Apex Sale Order"
 
     name = fields.Char(
