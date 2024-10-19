@@ -1,3 +1,5 @@
+from docutils.nodes import pending
+
 from odoo import models, api
 
 
@@ -55,6 +57,7 @@ class StockPicking(models.Model):
                 'use_create_lots': picking_id.picking_type_id.use_create_lots,
                 'use_existing_lots': picking_id.picking_type_id.use_existing_lots,
                 'group_stock_lot': group_stock_lot,
+                'picking_type_code':picking_id.picking_type_code,
             },
             'orderlines': line_list,
         }
@@ -206,6 +209,23 @@ class StockPicking(models.Model):
                 'message': 'You can not validate order which are already in done or cancel state!!!'
             }
 
+    @api.model
+    def clear_lines(self, picking_id):
+        """
+        Clear Existing lines on delivery
+        :return: return_dict
+        """
+        picking_id = self.search([('id', '=', picking_id)])
+        if picking_id.state in ['waiting', 'confirmed', 'assigned']:
+            for move in picking_id.move_ids:
+                move._do_unreserve()
+        result = self.picking_order_return_action(picking_id=picking_id)
+        if picking_id.state in ['waiting', 'confirmed', 'assigned']:
+            result["message"] = "Lines Cleared Successfully!!!!"
+        else:
+            result["message"] = "You can not clear lines for transfers which are in draft,done or cancel state!!!"
+        return result
+
     def picking_order_return_action(self, picking_id=None, updated_line_id=None):
         group_stock_lot = self.user_has_groups('stock.group_production_lot')
         line_list = []
@@ -243,6 +263,7 @@ class StockPicking(models.Model):
                 'use_create_lots': picking_id.picking_type_id.use_create_lots,
                 'use_existing_lots': picking_id.picking_type_id.use_existing_lots,
                 'group_stock_lot': group_stock_lot,
+                'picking_type_code': picking_id.picking_type_code,
             },
             'orderlines': line_list,
             'updated_line_id': updated_line_id,

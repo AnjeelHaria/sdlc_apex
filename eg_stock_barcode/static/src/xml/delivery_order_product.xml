@@ -101,6 +101,8 @@
                     <div class="stock-detail-btn-footer">
                         <div class="row" style="margin-top:0px;">
                             <t t-if="picking_id.order_data.state=='Waiting' or picking_id.order_data.state=='Ready' or picking_id.order_data.state=='Waiting Another Operation'">
+                                <button t-if="picking_id.order_data.picking_type_code == 'outgoing'" class="button_operations btn btn-block-half btn-primary mb-4 mb-sm-0 col"
+                                        id="clear_lines" t-on-click="(ev) => this.clear_lines(ev)">Clear Lines</button>
                                 <button class="button_operations btn btn-block-half btn-primary mb-4 mb-sm-0 col"
                                         id="product_manualy" t-on-click="(ev) => this.open_barcode_prompt(ev)">Enter Barcode Manually</button>
                                 <button class="button_operations btn btn-block-half btn-primary mb-4 mb-sm-0 col" t-on-click="(ev) => this.validate_picking_order(ev)"

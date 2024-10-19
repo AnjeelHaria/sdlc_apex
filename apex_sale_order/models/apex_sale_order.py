@@ -23,6 +23,7 @@ class ApexSaleOrder(models.Model):
         inverse_name='order_id',
         string="Order Lines",
         copy=True, auto_join=True)
+    sale_order_id = fields.Many2one('sale.order')
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -37,7 +38,20 @@ class ApexSaleOrder(models.Model):
         self.ensure_one()
         if not self.order_line:
             raise UserError("Add at least one order line")
-        self.state = 'accounts_check'
+        order_lines_data = []
+        for line in self.order_line:
+            order_lines_data.append((0, 0, {
+                'product_id': line.product_id.id,
+                'product_uom_qty': line.product_uom_qty,
+                'product_warehouse_id': line.product_warehouse_id.id,
+            }))
+        sale_order = self.env['sale.order'].sudo().create({
+            'partner_id': self.partner_id.id,
+            'order_line': order_lines_data,
+            'user_id': self.create_uid.id
+        })
+        sale_order.action_confirm()
+        self.write({'state':'accounts_check','sale_order_id':sale_order.id})
         for order in self:
             order_ref = order._get_html_link()
             customer_ref = order.partner_id._get_html_link()
@@ -81,6 +95,9 @@ class ApexSaleOrderLine(models.Model):
         string="Quantity",
         digits='Product Unit of Measure', default=1.0,
         required=True)
+    product_warehouse_id = fields.Many2one(
+        'stock.warehouse',
+        string='Warehouse', help='Warehouse where product taken from')
 
 
 

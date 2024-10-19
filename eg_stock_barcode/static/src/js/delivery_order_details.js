@@ -112,6 +112,23 @@ export class StockPickingDetails extends Component {
             }
        }
 
+           /* Clear existing lines on a Picking */
+        async clear_lines(){
+            var self = this;
+            const result = await this.orm.call("stock.picking", "clear_lines", [], {
+                picking_id: this.picking_id,
+            });
+            swal({title:"Success!", text:result.message, type:"success",timer:2000});
+            var $all_rows = $('.stock-move-line-row');
+            self.picking_dict = result;
+            var new_product_orderline_qweb = window.$(
+                renderToString('BarcodeStockMoveLine', {
+                'picking_id': result,
+                'updated_line_id': result.updated_line_id,
+            })
+            );
+            $all_rows.replaceWith(new_product_orderline_qweb);
+       }
 
         // open prompt when enter Barcode Manually
        async open_barcode_prompt(){
