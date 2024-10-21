@@ -51,6 +51,8 @@ class ApexSaleOrder(models.Model):
             'user_id': self.create_uid.id
         })
         sale_order.action_confirm()
+        for picking in sale_order.picking_ids.filtered(lambda p:p.state in ('waiting','draft','confirmed')):
+            picking.action_assign()
         self.write({'state':'accounts_check','sale_order_id':sale_order.id})
         for order in self:
             order_ref = order._get_html_link()
