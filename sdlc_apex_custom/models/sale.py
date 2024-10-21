@@ -8,6 +8,8 @@ from lxml import etree
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    is_validated_by_accounts = fields.Boolean()
+
     # @api.model
     # def fields_get(self, allfields=None, attributes=None):
     #     fields = super().fields_get(allfields=allfields, attributes=attributes)
