@@ -101,5 +101,9 @@ class ApexSaleOrderLine(models.Model):
         'stock.warehouse',
         string='Warehouse', help='Warehouse where product taken from')
 
+    missed_uom_qty = fields.Float(
+        string="Missed Quantity",
+        digits='Product Unit of Measure', default=1.0,
+        required=True)
 
 
